@@ -3,19 +3,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const mobileMenu = document.getElementById("mobile-menu");
 
   mobileMenuButton.addEventListener("click", function () {
-    const isHidden =
-      mobileMenu.style.maxHeight === "0px" || mobileMenu.style.maxHeight === "";
+    // Check if menu is currently hidden
+    const isHidden = mobileMenu.classList.contains("hidden");
 
     if (isHidden) {
       // Show menu
-      mobileMenu.style.maxHeight = "300px";
-      mobileMenu.style.opacity = "1";
-      mobileMenuButton.setAttribute("aria-expanded", true);
+      mobileMenu.classList.remove("hidden");
+      mobileMenuButton.setAttribute("aria-expanded", "true");
     } else {
       // Hide menu
-      mobileMenu.style.maxHeight = "0px";
-      mobileMenu.style.opacity = "0";
-      mobileMenuButton.setAttribute("aria-expanded", false);
+      mobileMenu.classList.add("hidden");
+      mobileMenuButton.setAttribute("aria-expanded", "false");
     }
   });
 
@@ -25,14 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
       mobileMenuButton.contains(event.target) ||
       mobileMenu.contains(event.target);
 
-    if (
-      !isClickInsideNav &&
-      mobileMenu.style.maxHeight !== "0px" &&
-      mobileMenu.style.maxHeight !== ""
-    ) {
-      mobileMenu.style.maxHeight = "0px";
-      mobileMenu.style.opacity = "0";
-      mobileMenuButton.setAttribute("aria-expanded", false);
+    if (!isClickInsideNav && !mobileMenu.classList.contains("hidden")) {
+      mobileMenu.classList.add("hidden");
+      mobileMenuButton.setAttribute("aria-expanded", "false");
     }
   });
 
